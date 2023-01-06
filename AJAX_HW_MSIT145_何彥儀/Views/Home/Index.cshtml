@@ -1,12 +1,39 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@section CSStyle{
+    <style>
+        .ellipsis {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            // 行數 -webkit-box-orient: vertical;
+            white-space: normal;
+        }
+    </style>
+}
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-<div class="card" style="width: 18rem;">
+<div class="d-flex flex-wrap" id="myUl">
+   
+</div>
+
+
+
+<div class="card m-1" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
+</div>
+
+
+<div class="card m-1" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">Card title</h5>
     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -15,13 +42,45 @@
     <a href="#" class="card-link">Another link</a>
   </div>
 </div>
-
-
+</div>
 @section Scripts{
     <script src="~/js/travel.js"></script>
     <script>
-       let datas = DATAS.forEach(()=>{
-                        const { InfoId, TYWebsite, Name, Toldescribe, Add, Zipcode,}
+       // let datas = DATAS.forEach((value, index, array) => {
+       //     const { InfoId, TYWebsite, Name, Toldescribe, Add, Zipcode, Opentime, Px, Py, Website,
+       //         Parkinginfo, Ticketinfo, Remarks, Tel, Fax, Changetime}=value;
+       //         //console.log(InfoId);//資訊ID
+       //})
+        const theUl = document.querySelector('#myUl');
+          let datas = DATAS.map((value, index, array) => {
+            const { InfoId, TYWebsite, Name, Toldescribe, Add, Zipcode, Opentime, Px, Py, Website,
+                Parkinginfo, Ticketinfo, Remarks, Tel, Fax, Changetime}=value;
+                console.log(Name);//資訊
+                return(`<div class="card m-1" style="width: 18rem;">  <div class="card-body">
+                                <h5 class="card-title">${Name}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">${InfoId}</h6>
+                                      <p class="card-text ellipsis" >${Toldescribe}</p>
+                                <a href="${TYWebsite}" class="card-link">文化局連結</a>
+                                <a href="${Website}" class="card-link">官方連結</a>
+                            </div>
+                        </div>`);                       
+           
        })
+        
+       //data = for (let i = 0, max = DATAS.length;i<max;i++) {
+       //     const { InfoId, Name, Toldescribe, TYWebsite, Website }
+       //     return(`<div class="card m-1" style="width: 18rem;">
+       //   <div class="card-body">
+       //     <h5 class="card-title">${Name}</h5>
+       //     <h6 class="card-subtitle mb-2 text-muted">${InfoId}</h6>
+       //     <p class="card-text">${Toldescribe}</p>
+       //     <a href="${TYWebsite}" class="card-link">文化局連結</a>
+       //             <a href="${Website}" class="card-link">官方連結</a>
+       //   </div>
+       // </div>           
+       //     `);
+        
+       //}
+       theUl.innerHTML=datas.join("");
     </script>
 }
